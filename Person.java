@@ -13,19 +13,39 @@ public class Person {
         name = in.nextLine();
         System.out.print("Enter address: ");
         address = in.nextLine();
-        System.out.print("Enter ID Number: ");
-        registerIDNumber = in.nextLine();
-        System.out.print("Enter password: ");
-        registerPassword = in.nextLine();
-        System.out.print("Registration Complete!" + name + " has been added.");
+
+        do {
+            System.out.print("Enter ID Number: ");
+            registerIDNumber = in.nextLine();
+        
+            if (registerIDNumber.isEmpty()) {
+                System.out.println("Input failed. ID Number must not be empty.");
+            }
+        } while (registerIDNumber.isEmpty());
+
+        do{
+            System.out.print("Enter password: ");
+            registerPassword = in.nextLine();
+
+            if (registerPassword.isEmpty())
+                System.out.println("Input failed. Password must not be empty.");
+            else if (registerPassword.length() <= 5) {
+                System.out.println("Input failed. Password must be at least 6 characters long.");
+            }
+        } while (registerPassword.isEmpty() || registerPassword.length() <= 5);
+
+        System.out.print("Registration Complete! " + name + " has been added.");
     }
 
     public void login() {
         System.out.println("-----LOGIN----");
         System.out.print("Enter ID Number: ");
+        loginIDNumber = in.nextLine();
         System.out.print("Enter Password: ");
+        loginPassword = in.nextLine();
 
-        if (registerIDNumber == loginIDNumber && registerPassword == loginPassword) {
+        if (loginIDNumber != null && loginPassword != null && registerIDNumber.equals(loginIDNumber) && registerPassword.equals(loginPassword)) {
+            isloggedIn = true;
             System.out.print("Login Successful!");
         } else{
             System.out.print("Wrong ID Number or Password. Please try again.");
@@ -33,7 +53,21 @@ public class Person {
     }
 
     public void logout(){
-        isloggedIn = false;
+        if (isloggedIn) {
+            isloggedIn = false;
+            System.out.println("You logged out.");
+        }
+    }
+
+    public void displayInfo() {
+        if(isloggedIn){
+            System.out.println("=====WELCOME=====");
+            System.out.println("Name: " + name);
+            System.out.println("Address: " + address);
+            System.out.println("ID Number: " + registerIDNumber);
+        }
+        
+
     }
 }
 
