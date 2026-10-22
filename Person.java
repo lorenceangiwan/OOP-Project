@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class Person {
-    protected String name, address, registerIDNumber, loginIDNumber, registerPassword, loginPassword;
-    protected boolean isloggedIn = false;
+    protected String name, address, idNumber, password;
+    protected boolean isLoggedIn;
     Scanner in = new Scanner(System.in);
 
-    public Person(){}
+    public Person() {}
 
     public void register(){
         System.out.println("-----REGISTRATION-----");
@@ -16,60 +16,150 @@ public class Person {
 
         do {
             System.out.print("Enter ID Number: ");
-            registerIDNumber = in.nextLine();
-        
-            if (registerIDNumber.isEmpty()) {
+            idNumber = in.nextLine();
+
+            if (idNumber.isEmpty()) {
                 System.out.println("Input failed. ID Number must not be empty.");
             }
-        } while (registerIDNumber.isEmpty());
+        } while (idNumber.isEmpty());
 
-        do{
+        do {
             System.out.print("Enter password: ");
-            registerPassword = in.nextLine();
+            password = in.nextLine();
 
-            if (registerPassword.isEmpty())
+            if (password.isEmpty())
                 System.out.println("Input failed. Password must not be empty.");
-            else if (registerPassword.length() <= 5) {
+            else if (password.length() <= 5) {
                 System.out.println("Input failed. Password must be at least 6 characters long.");
             }
-        } while (registerPassword.isEmpty() || registerPassword.length() <= 5);
+        } while (password.isEmpty() || password.length() <= 5);
 
-        System.out.print("Registration Complete! " + name + " has been added.");
+        System.out.println("Registration Complete! " + name + " has been added.");
     }
 
-    public void login() {
-        System.out.println("-----LOGIN----");
-        System.out.print("Enter ID Number: ");
-        loginIDNumber = in.nextLine();
-        System.out.print("Enter Password: ");
-        loginPassword = in.nextLine();
+    public void login(String inputIDNumber, String inputPassword) {
+        System.out.println("-----LOGIN-----");
 
-        if (loginIDNumber != null && loginPassword != null && registerIDNumber.equals(loginIDNumber) && registerPassword.equals(loginPassword)) {
-            isloggedIn = true;
-            System.out.print("Login Successful!");
-        } else{
-            System.out.print("Wrong ID Number or Password. Please try again.");
+        if (this.idNumber == null || this.password == null) {
+            System.out.println("Error: Account not registered. Please register first.");
+        }
+
+        System.out.print("Enter ID Number: ");
+        String inputIdNumber = in.nextLine();
+        System.out.print("Enter Password: ");
+        inputPassword = in.nextLine();
+
+        if (idNumber.equals(inputIdNumber) && password.equals(inputPassword)) {
+            isLoggedIn = true;
+            System.out.println("Login Successful!");
+        } else {
+            System.out.println("Wrong ID Number or Password. Please try again.");
         }
     }
 
     public void logout(){
-        if (isloggedIn) {
-            isloggedIn = false;
+        if (isLoggedIn) {
+            isLoggedIn = false;
             System.out.println("You logged out.");
+        } else {
+            System.out.println("You are not logged in.");
         }
     }
 
     public void displayInfo() {
-        if(isloggedIn){
-            System.out.println("=====WELCOME=====");
+        if (isLoggedIn) {
+            System.out.println("\n===== WELCOME =====");
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
-            System.out.println("ID Number: " + registerIDNumber);
+            System.out.println("ID Number: " + idNumber);
+            System.out.println("===================\n");
+        } else {
+            System.out.println("Please log in to view your information.\n");
         }
-        
+    }
 
+    public void changeInfo() {
+    if (!isLoggedIn) {
+        System.out.println("Please log in to change your information.");
+        return;
+    }
+
+    boolean done = false;
+    while (!done) {
+        System.out.println("\n-----CHANGE INFORMATION-----");
+        System.out.println("1. Name (" + name + ")");
+        System.out.println("2. Address (" + address + ")");
+        System.out.println("3. ID Number (" + idNumber + ")");
+        System.out.println("4. Password");
+        System.out.println("5. Done");
+        System.out.print("What do you want to change? ");
+        String choice = in.nextLine().trim();
+
+        switch (choice) {
+            case "1":
+                System.out.print("Enter new full name: ");
+                String newName = in.nextLine().trim();
+                if (newName.isEmpty()) {
+                    System.out.println("Input failed. Name must not be empty.");
+                } else {
+                    name = newName;
+                    System.out.println("Name updated.");
+                }
+                break;
+
+            case "2":
+                System.out.print("Enter new address: ");
+                String newAddress = in.nextLine().trim();
+                if (newAddress.isEmpty()) {
+                    System.out.println("Input failed. Address must not be empty.");
+                } else {
+                    address = newAddress;
+                    System.out.println("Address updated.");
+                }
+                break;
+
+            case "3":
+                if (!confirmPassword()) break;
+                System.out.print("Enter new ID Number: ");
+                String newID = in.nextLine().trim();
+                if (newID.isEmpty()) {
+                    System.out.println("Input failed. ID Number must not be empty.");
+                } else {
+                    idNumber = newID;
+                    System.out.println("ID Number updated.");
+                }
+                break;
+
+            case "4":
+                if (!confirmPassword()) break;
+                System.out.print("Enter new password: ");
+                String newPass = in.nextLine();
+                if (newPass.length() <= 5) {
+                    System.out.println("Input failed. Password must be at least 6 characters long.");
+                } else {
+                    password = newPass;
+                    System.out.println("Password updated.");
+                }
+                break;
+
+            case "5":
+                done = true;
+                break;
+
+            default:
+                System.out.println("Invalid choice.");
+        }
     }
 }
 
-
-
+// Helper: asks for the current password before changing sensitive info
+private boolean confirmPassword() {
+    System.out.print("Enter your current password to continue: ");
+    String entered = in.nextLine();
+    if (password.equals(entered)) {
+        return true;
+    }
+    System.out.println("Incorrect password. Change cancelled.");
+    return false;
+}
+}
