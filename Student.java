@@ -1,75 +1,60 @@
-public class Student extends Person{
-    private String course;
-    private String year;
-    private SubjectItem[] subjects; // Replaces separate subject and grade arrays
-    private boolean meritScholar = false;
+public abstract class Student extends Person{
+    protected String course;
+    protected String year;
+    protected double totalGWA;
+    protected int totalUnits;
+    protected SubjectItem[] subjects; // groups subject and units
+    protected boolean meritScholar = false;
 
     public Student(){};
+    
+    public abstract void displayInfo();
 
-    public void addInfo() {
-    System.out.println("-----STUDENT INFORMATION-----");
+    public abstract void addInfo(); 
 
-    // 1. Select Course with Input Validation
-    int courseChoice = 0;
-    do {
-        System.out.println("Select Course:");
-        System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
-        System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
-        System.out.print("Enter choice (1 or 2): ");
-
-        if (in.hasNextInt()) {
-            courseChoice = in.nextInt();
-            in.nextLine(); // Clear the newline character from the buffer
-            
-            if (courseChoice != 1 && courseChoice != 2) {
-                System.out.println("Invalid selection. Please choose 1 or 2.\n");
-            }
-        } else {
-            System.out.println("Invalid input! Please enter a number.\n");
-            in.nextLine(); // Clear invalid non-integer input
-        }
-    } while (courseChoice != 1 && courseChoice != 2);
-
-    // 2. Assign Course Name and Specific Subjects
-    switch (courseChoice) {
-    case 1:
-        course = "BSCS";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Data Structures", 3),
-            new SubjectItem("Discrete Mathematics", 3),
-            new SubjectItem("Object-Oriented Programming", 5),
-            new SubjectItem("Information Management", 3)
-        };
-        break;
-    case 2:
-        course = "BSIT";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Networking", 3),
-            new SubjectItem("Database Systems", 3),
-            new SubjectItem("Web Development", 5),
-            new SubjectItem("System Administration", 3)
-        };
-        break;
-}
-    // 3. Enter Year Level
-    do {
-        System.out.print("Enter Year Level (e.g., 1, 2, 3, 4): ");
-        year = in.nextLine().trim();
-        if (year.isEmpty()) {
-            System.out.println("Year level must not be empty.");
-        }
-    } while (year.isEmpty());
-
-        System.out.println("\n===== STUDENT INFORMATION =====");
-        System.out.println("Course: " + course);
-        System.out.println("Year Level: " + year);
-        System.out.println("Assigned Subjects:");
+    public int calculateUnits(){
         for (int i = 0; i < subjects.length; i++) {
-            System.out.println("- " + subjects[i].getName());
+            totalUnits = totalUnits + subjects[i].getUnits();
         }
-        System.out.println("===============================\n");
-        System.out.println("Student information saved.");
+        return totalUnits;
+    }
+    
+    public void inputGrades() {
+    if (subjects == null || subjects.length == 0) {
+        System.out.println("No subjects found. Please complete course registration first.");
+        return;
     }
 
-    
+    System.out.println("----- ENTER GRADES -----");
+    for (int i = 0; i < subjects.length; i++) {
+        double grade = 0.0;
+        boolean isValid = false;
+
+        do {
+            System.out.print("Enter grade for " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units): ");
+            
+            if (in.hasNextDouble()) {
+                grade = in.nextDouble();
+                in.nextLine();
+
+                // grade range
+                if (grade >= 1.0 && grade <= 5.0) { 
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid grade range. Please enter a value between 1.0 and 5.0.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a numeric grade.");
+                in.nextLine();
+            }
+        } while (!isValid);
+
+        // Save grade directly into the specific SubjectItem object
+        subjects[i].setGrade(grade);
+    }
+    System.out.println("All grades successfully recorded!\n");
+}
+    public abstract boolean isPassing();
+
+    public double computeGWA() {}
 }

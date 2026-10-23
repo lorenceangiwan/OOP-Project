@@ -152,7 +152,6 @@ public class Person {
     }
 }
 
-// Helper: asks for the current password before changing sensitive info
 private boolean confirmPassword() {
     System.out.print("Enter your current password to continue: ");
     String entered = in.nextLine();
