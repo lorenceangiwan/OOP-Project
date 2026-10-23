@@ -1,4 +1,4 @@
-public abstract class UndergraduateStudent extends Student {
+public class UndergraduateStudent extends Student {
 
     public void displayInfo() {
         if (isLoggedIn) {
@@ -75,5 +75,9 @@ public abstract class UndergraduateStudent extends Student {
         }
         System.out.println("===============================\n");
         System.out.println("Student information saved.");
+    }
+
+    public boolean isPassing(){
+        return true;
     }
 }

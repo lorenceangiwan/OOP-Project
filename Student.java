@@ -56,5 +56,7 @@ public abstract class Student extends Person{
 }
     public abstract boolean isPassing();
 
-    public double computeGWA() {}
+    public double computeGWA() {
+        return 0.3;
+    }
 }
