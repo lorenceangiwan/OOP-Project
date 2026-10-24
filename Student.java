@@ -53,7 +53,8 @@ public abstract class Student extends Person{
         subjects[i].setGrade(grade);
     }
     System.out.println("All grades successfully recorded!\n");
-}
+    }
+
     public abstract boolean isPassing();
 
     public double computeGWA() {

@@ -1,14 +1,52 @@
 public class UndergraduateStudent extends Student {
 
     public void displayInfo() {
-        if (isLoggedIn) {
+        if (!isLoggedIn) {
+            System.out.println("Please log in to view your information.\n");
+            return;
+        }
+
+        int choice = 0;
+        while (choice != 4) {
             System.out.println("\n===== WELCOME =====");
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
             System.out.println("ID Number: " + idNumber);
+            System.out.println("Course: " + course);
+            System.out.println("Assigned Subjects:");
+
+            if (subjects != null) {
+                for (int i = 0; i < subjects.length; i++) {
+                    System.out.println("- " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units)"); //display subjects and units
+                }
+            } else {
+                System.out.println("No Subjects Yet");
+            }
             System.out.println("===================\n");
-        } else {
-            System.out.println("Please log in to view your information.\n");
+
+            System.out.println("1. Add student information");
+            System.out.println("2. Enter grades");
+            System.out.println("3. Compute overall GWA");
+            System.out.println("4. Return to main menu");
+            System.out.print("Enter choice: ");
+            choice = in.nextInt();
+            in.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addInfo();
+                    break;
+                case 2:
+                    inputGrades();
+                    break;
+                case 3:
+                    System.out.println("GWA computation is under development.");
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select between 1 and 4.");
+            }
         }
     }
 
@@ -27,10 +65,7 @@ public class UndergraduateStudent extends Student {
 
         if (courseChoice != 1 && courseChoice != 2) {
             System.out.println("Invalid selection. Please choose 1 or 2.\n");
-        } else {
-            System.out.println("Invalid input! Please enter a number.\n");
-            in.nextLine();
-            }
+        }
 
     } while (courseChoice != 1 && courseChoice != 2);
 
@@ -57,21 +92,13 @@ public class UndergraduateStudent extends Student {
         };
         break;
 }
-    //year level
-    do {
-        System.out.print("Enter Year Level (e.g., 1, 2, 3, 4): ");
-        year = in.nextLine().trim();
-        if (year.isEmpty()) {
-            System.out.println("Year level must not be empty.");
-        }
-    } while (year.isEmpty());
+
 
         System.out.println("\n===== STUDENT INFORMATION =====");
         System.out.println("Course: " + course);
-        System.out.println("Year Level: " + year);
         System.out.println("Assigned Subjects:");
         for (int i = 0; i < subjects.length; i++) {
-            System.out.println("- " + subjects[i].getName());
+            System.out.println("- " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units)");
         }
         System.out.println("===============================\n");
         System.out.println("Student information saved.");
