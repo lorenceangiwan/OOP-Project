@@ -35,19 +35,22 @@ public class Main {
 
                     while (!in.hasNextInt()) {
                         System.out.print("Invalid input. Enter 1 or 2: ");
-                        in.next();
+                        in.nextInt();
                     }
                     int registerChoice = in.nextInt();
                     in.nextLine();
 
                     if (registerChoice == 1) {
                         UndergraduateStudent undergraduate = new UndergraduateStudent();
+                        undergraduate.in = in;
 
                         System.out.println("\n-----REGISTRATION-----");
                         System.out.print("Enter Full Name: ");
                         undergraduate.name = in.nextLine();
                         System.out.print("Enter address: ");
                         undergraduate.address = in.nextLine();
+
+                        undergraduate.selectCourse();
 
                         do {
                             System.out.print("Enter ID Number: ");

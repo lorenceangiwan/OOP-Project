@@ -10,9 +10,11 @@ public abstract class Student extends Person{
     
     public abstract void displayInfo();
 
-    public abstract void addInfo(); 
+    public abstract void selectCourse();
 
-    public int calculateUnits(){
+    public int computeUnits(){
+        totalUnits = 0;
+
         for (int i = 0; i < subjects.length; i++) {
             totalUnits = totalUnits + subjects[i].getUnits();
         }
@@ -55,9 +57,23 @@ public abstract class Student extends Person{
     System.out.println("All grades successfully recorded!\n");
     }
 
-    public abstract boolean isPassing();
-
     public double computeGWA() {
-        return 0.3;
+        double totalGrades = 0.0;
+
+        for (int i = 0; i < subjects.length; i++) {
+            SubjectItem subject = subjects[i];
+
+            totalGrades = totalGrades + subject.getGrade() * subject.getUnits();
+        }
+
+        int units = computeUnits();
+        if (units == 0) {
+            return 0.0;
+        }
+
+        totalGWA = totalGrades / units;
+        return totalGWA;
     }
+
+    public abstract void academicStatus();
 }

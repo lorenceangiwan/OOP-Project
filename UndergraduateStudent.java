@@ -7,104 +7,94 @@ public class UndergraduateStudent extends Student {
         }
 
         int choice = 0;
-        while (choice != 4) {
+        while (choice != 3) {
             System.out.println("\n===== WELCOME =====");
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
             System.out.println("ID Number: " + idNumber);
             System.out.println("Course: " + course);
             System.out.println("Assigned Subjects:");
-
-            if (subjects != null) {
                 for (int i = 0; i < subjects.length; i++) {
-                    System.out.println("- " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units)"); //display subjects and units
+                    System.out.printf("- %s (%d units): %.2f%n",
+                        subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
                 }
-            } else {
-                System.out.println("No Subjects Yet");
-            }
+
+            System.out.printf("Overall GWA: %.2f%n", computeGWA());
+            System.out.print("Status: ");
+            academicStatus();
+
             System.out.println("===================\n");
 
-            System.out.println("1. Add student information");
-            System.out.println("2. Enter grades");
-            System.out.println("3. Compute overall GWA");
-            System.out.println("4. Return to main menu");
+            System.out.println("1. Enter grades");
+            System.out.println("2. Update Information");
+            System.out.println("3. Return to main menu");
             System.out.print("Enter choice: ");
             choice = in.nextInt();
             in.nextLine();
 
             switch (choice) {
-                case 1:
-                    addInfo();
-                    break;
-                case 2:
+                case 1: //grades
                     inputGrades();
                     break;
-                case 3:
-                    System.out.println("GWA computation is under development.");
+                case 2: //updating information
+                    double gwa = computeGWA();
+                    if (gwa > 0.0) {
+                        System.out.printf("Overall GWA: %.2f%n", gwa);
+                    }
                     break;
-                case 4:
+                case 3: //return to menu
                     break;
                 default:
-                    System.out.println("Invalid choice. Please select between 1 and 4.");
+                    System.out.println("Invalid choice. Please select between 1 and 3.");
             }
         }
     }
 
-    public void addInfo(){
-    System.out.println("-----STUDENT INFORMATION-----");
+    public void selectCourse(){
+        int courseChoice = 0;
+        do {
+            System.out.println("Select Course:");
+            System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
+            System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
+            System.out.print("Enter choice (1 or 2): ");
 
-    //selecting courses
-    int courseChoice = 0;
-    do {
-        System.out.println("Select Course:");
-        System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
-        System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
-        System.out.print("Enter choice (1 or 2): ");
-        courseChoice = in.nextInt();
-        in.nextLine();
+            if (in.hasNextInt()) {
+                courseChoice = in.nextInt();
+                in.nextLine();
 
-        if (courseChoice != 1 && courseChoice != 2) {
-            System.out.println("Invalid selection. Please choose 1 or 2.\n");
+                if (courseChoice != 1 && courseChoice != 2) {
+                    System.out.println("Invalid selection. Please choose 1 or 2.\n");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number.\n");
+                in.nextLine(); // Clear invalid non-integer input
+            }
+        } while (courseChoice != 1 && courseChoice != 2);
+
+        // 2. Assign Course String
+        if (courseChoice == 1) {
+            course = "BSCS";
+        } else {
+            course = "BSIT";
         }
 
-    } while (courseChoice != 1 && courseChoice != 2);
-
-    // courses and its units
-    switch (courseChoice) {
-    case 1:
-        course = "BSCS";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Data Structures and Algorithms", 3),
-            new SubjectItem("Discrete Structures 2", 3),
-            new SubjectItem("Object-Oriented Programming", 3),
-            new SubjectItem("Information Management", 3),
-            new SubjectItem("Readings in Philippine History", 3),
-            new SubjectItem("The Entrepreneurial Mind", 3)
-        };
-        break;
-    case 2:
-        course = "BSIT";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Networking", 3),
-            new SubjectItem("Database Systems", 3),
-            new SubjectItem("Web Development", 3),
-            new SubjectItem("System Administration", 3)
-        };
-        break;
-}
-
-
-        System.out.println("\n===== STUDENT INFORMATION =====");
-        System.out.println("Course: " + course);
-        System.out.println("Assigned Subjects:");
-        for (int i = 0; i < subjects.length; i++) {
-            System.out.println("- " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units)");
-        }
-        System.out.println("===============================\n");
-        System.out.println("Student information saved.");
+        // 3. Fetch subjects dynamically from the SubjectItem catalog class
+        subjects = SubjectItem.courseSubjects(course);
     }
 
-    public boolean isPassing(){
-        return true;
+    public void academicStatus(){
+        if(computeGWA() >= 1.00 && computeGWA() <= 1.99) {
+            System.out.println("Outstanding");
+        } else if(computeGWA() >= 2.00 && computeGWA() <= 2.99){
+            System.out.println("Satisfactory");
+        } else if(computeGWA() >= 3.00 && computeGWA() <= 3.49) {
+            System.out.println("Passed");
+        } else if(computeGWA() >= 3.50 && computeGWA() <= 4.00){
+            System.out.println("Conditional");
+        } else if(computeGWA() >= 5.00){
+            System.out.println("Failed");
+        } else{
+            System.out.println("None");
+        }
     }
 }
