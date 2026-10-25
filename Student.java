@@ -8,9 +8,46 @@ public abstract class Student extends Person{
 
     public Student(){};
     
-    public abstract void displayInfo();
+    public void displayInfo() {
+        int choice = 0;
+        while (choice != 3) {
+            System.out.println("\n===== WELCOME =====");
+            System.out.println("Name: " + name);
+            System.out.println("Address: " + address);
+            System.out.println("ID Number: " + idNumber);
+            System.out.println("Course: " + course);
+            System.out.println("Assigned Subjects for this Semester:");
+            for (int i = 0; i < subjects.length; i++) {
+                System.out.printf("- %s (%d units): %.2f%n",
+                    subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
+            }
 
-    public abstract void selectCourse();
+            System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
+            System.out.print("Status: ");
+            academicStatus();
+
+            System.out.println("===================\n");
+
+            System.out.println("1. Enter grades");
+            System.out.println("2. Update Information");
+            System.out.println("3. Return to main menu");
+            System.out.print("Enter choice: ");
+            choice = in.nextInt();
+            in.nextLine();
+
+            switch (choice) {
+                case 1:
+                    inputGrades();
+                    break;
+                case 2:
+                    super.updateInfo();
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select between 1 and 3.");
+            }
+        }
+    }
 
     public int computeUnits(){
         totalUnits = 0;
@@ -22,11 +59,6 @@ public abstract class Student extends Person{
     }
     
     public void inputGrades() {
-    if (subjects == null || subjects.length == 0) {
-        System.out.println("No subjects found. Please complete course registration first.");
-        return;
-    }
-
     System.out.println("----- ENTER GRADES -----");
     for (int i = 0; i < subjects.length; i++) {
         double grade = 0.0;
@@ -66,14 +98,17 @@ public abstract class Student extends Person{
             totalGrades = totalGrades + subject.getGrade() * subject.getUnits();
         }
 
-        int units = computeUnits();
-        if (units == 0) {
-            return 0.0;
-        }
-
-        totalGWA = totalGrades / units;
+        totalGWA = totalGrades / computeUnits();
         return totalGWA;
     }
 
     public abstract void academicStatus();
+
+    public void updateInfo(){
+        super.updateInfo();
+    }
+
+    public static void computeTuition(){
+
+    }
 }

@@ -19,13 +19,9 @@ public class Person {
         }
     }
 
-    public void changeInfo() {
-        if (!isLoggedIn) {
-            System.out.println("Please log in to change your information.");
-            return;
-        }
-
+    public void updateInfo() {
         boolean done = false;
+
         while (!done) {
             System.out.println("\n-----CHANGE INFORMATION-----");
             System.out.println("1. Name (" + name + ")");

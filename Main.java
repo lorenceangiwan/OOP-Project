@@ -13,7 +13,7 @@ public class Main {
         while (choice != 5) {
             System.out.println("\n===== UNIVERSITY INFORMATION MANAGEMENT SYSTEM =====");
             System.out.println("1. Register");
-            System.out.println("2. Login / View Student Info");
+            System.out.println("2. Login");
             System.out.println("3. Professor (To be made)");
             System.out.println("4. Logout");
             System.out.println("5. Exit");
@@ -30,55 +30,37 @@ public class Main {
 
                     System.out.println("\n===== CHOOSE ACCOUNT TYPE =====");
                     System.out.println("1. Undergraduate Student");
-                    System.out.println("2. Professor");
+                    System.out.println("2. Masteral Student");
+                    System.out.println("3. Professor");
                     System.out.print("Enter choice: ");
 
                     while (!in.hasNextInt()) {
-                        System.out.print("Invalid input. Enter 1 or 2: ");
-                        in.nextInt();
+                        System.out.print("Invalid input. Enter 1, 2, or 3: ");
+                        in.nextLine();
                     }
                     int registerChoice = in.nextInt();
                     in.nextLine();
 
                     if (registerChoice == 1) {
                         UndergraduateStudent undergraduate = new UndergraduateStudent();
-                        undergraduate.in = in;
-
-                        System.out.println("\n-----REGISTRATION-----");
-                        System.out.print("Enter Full Name: ");
-                        undergraduate.name = in.nextLine();
-                        System.out.print("Enter address: ");
-                        undergraduate.address = in.nextLine();
-
-                        undergraduate.selectCourse();
-
-                        do {
-                            System.out.print("Enter ID Number: ");
-                            undergraduate.idNumber = in.nextLine();
-
-                            if (undergraduate.idNumber.isEmpty()) {
-                                System.out.println("Input failed. ID Number must not be empty.");
-                            }
-                        } while (undergraduate.idNumber.isEmpty());
-
-                        do {
-                            System.out.print("Enter password: ");
-                            undergraduate.password = in.nextLine();
-
-                            if (undergraduate.password.isEmpty()) {
-                                System.out.println("Input failed. Password must not be empty.");
-                            } else if (undergraduate.password.length() <= 5) {
-                                System.out.println("Input failed. Password must be at least 6 characters long.");
-                            }
-                        } while (undergraduate.password.isEmpty() || undergraduate.password.length() <= 5);
-
-                        System.out.println("Registration Complete! " + undergraduate.name + " has been added.");
+                        undergraduate.register();
 
                         users[userCount] = undergraduate;
                         userCount++;
                         System.out.println("Student successfully registered in slot " + userCount);
-                    } else {
+
+                    } else if (registerChoice == 2) {
+                        MasteralStudent masteral = new MasteralStudent();
+                        masteral.in = in;
+                        masteral.register();
+
+                        users[userCount] = masteral;
+                        userCount++;
+                        System.out.println("Masteral student successfully registered in slot " + userCount);
+                    } else if (registerChoice == 3) {
                         System.out.println("Professor registration coming soon.");
+                    } else {
+                        System.out.println("Invalid account type. Please select between 1 and 3.");
                     }
                     break;
                 }

@@ -1,56 +1,16 @@
 public class UndergraduateStudent extends Student {
 
     public void displayInfo() {
-        if (!isLoggedIn) {
-            System.out.println("Please log in to view your information.\n");
-            return;
-        }
-
-        int choice = 0;
-        while (choice != 3) {
-            System.out.println("\n===== WELCOME =====");
-            System.out.println("Name: " + name);
-            System.out.println("Address: " + address);
-            System.out.println("ID Number: " + idNumber);
-            System.out.println("Course: " + course);
-            System.out.println("Assigned Subjects:");
-                for (int i = 0; i < subjects.length; i++) {
-                    System.out.printf("- %s (%d units): %.2f%n",
-                        subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
-                }
-
-            System.out.printf("Overall GWA: %.2f%n", computeGWA());
-            System.out.print("Status: ");
-            academicStatus();
-
-            System.out.println("===================\n");
-
-            System.out.println("1. Enter grades");
-            System.out.println("2. Update Information");
-            System.out.println("3. Return to main menu");
-            System.out.print("Enter choice: ");
-            choice = in.nextInt();
-            in.nextLine();
-
-            switch (choice) {
-                case 1: //grades
-                    inputGrades();
-                    break;
-                case 2: //updating information
-                    double gwa = computeGWA();
-                    if (gwa > 0.0) {
-                        System.out.printf("Overall GWA: %.2f%n", gwa);
-                    }
-                    break;
-                case 3: //return to menu
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select between 1 and 3.");
-            }
-        }
+        super.displayInfo();
     }
 
-    public void selectCourse(){
+    public void register(){
+        System.out.println("\n-----REGISTRATION-----");
+        System.out.print("Enter Full Name: ");
+        name = in.nextLine();
+        System.out.print("Enter address: ");
+        address = in.nextLine();
+
         int courseChoice = 0;
         do {
             System.out.println("Select Course:");
@@ -80,6 +40,28 @@ public class UndergraduateStudent extends Student {
 
         // 3. Fetch subjects dynamically from the SubjectItem catalog class
         subjects = SubjectItem.courseSubjects(course);
+
+        do {
+            System.out.print("Enter ID Number: ");
+            idNumber = in.nextLine();
+
+            if (idNumber.isEmpty()) {
+                System.out.println("Input failed. ID Number must not be empty.");
+            }
+        } while (idNumber.isEmpty());
+
+        do {
+            System.out.print("Enter password: ");
+            password = in.nextLine();
+
+            if (password.isEmpty()) {
+                System.out.println("Input failed. Password must not be empty.");
+            } else if (password.length() <= 5) {
+                System.out.println("Input failed. Password must be at least 6 characters long.");
+            }
+        } while (password.isEmpty() || password.length() <= 5);
+
+        System.out.println("Registration Complete! " + name + " has been added.");
     }
 
     public void academicStatus(){
