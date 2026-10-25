@@ -1,23 +1,13 @@
 import java.util.*;
 
-public class Person {
+public abstract class Person {
     protected String name, address, idNumber, password;
     protected boolean isLoggedIn;
     Scanner in = new Scanner(System.in);
 
     public Person() {}
 
-    public void displayInfo() {
-        if (isLoggedIn) {
-            System.out.println("\n===== WELCOME =====");
-            System.out.println("Name: " + name);
-            System.out.println("Address: " + address);
-            System.out.println("ID Number: " + idNumber);
-            System.out.println("===================\n");
-        } else {
-            System.out.println("Please log in to view your information.\n");
-        }
-    }
+    public abstract void displayInfo();
 
     public void updateInfo() {
         boolean done = false;

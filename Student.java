@@ -11,7 +11,7 @@ public abstract class Student extends Person{
     public void displayInfo() {
         int choice = 0;
         while (choice != 3) {
-            System.out.println("\n===== WELCOME =====");
+            System.out.println("\n===== STUDENT DASHBOARD =====");
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
             System.out.println("ID Number: " + idNumber);
@@ -29,7 +29,7 @@ public abstract class Student extends Person{
             System.out.println("===================\n");
 
             System.out.println("1. Enter grades");
-            System.out.println("2. Update Information");
+            System.out.println("2. Update information");
             System.out.println("3. Return to main menu");
             System.out.print("Enter choice: ");
             choice = in.nextInt();

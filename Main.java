@@ -13,8 +13,8 @@ public class Main {
         while (choice != 5) {
             System.out.println("\n===== UNIVERSITY INFORMATION MANAGEMENT SYSTEM =====");
             System.out.println("1. Register");
-            System.out.println("2. Login");
-            System.out.println("3. Professor (To be made)");
+            System.out.println("2. Student Login");
+            System.out.println("3. Professor Login");
             System.out.println("4. Logout");
             System.out.println("5. Exit");
             System.out.print("Enter choice: ");
@@ -58,14 +58,20 @@ public class Main {
                         userCount++;
                         System.out.println("Masteral student successfully registered in slot " + userCount);
                     } else if (registerChoice == 3) {
-                        System.out.println("Professor registration coming soon.");
+                        Professor professor = new Professor();
+                        professor.in = in;
+                        professor.register();
+
+                        users[userCount] = professor;
+                        userCount++;
+                        System.out.println("Professor successfully registered in slot " + userCount);
                     } else {
                         System.out.println("Invalid account type. Please select between 1 and 3.");
                     }
                     break;
                 }
 
-                case 2: { // LOGIN
+                case 2: { // STUDENT LOGIN
                     if (userCount == 0) {
                         System.out.println("\nNo accounts registered yet. Please register first.");
                         break;
@@ -97,8 +103,39 @@ public class Main {
                     break;
                 }
 
-                case 3: // PROFESSOR
-                    System.out.println("\n[Feature under development]");
+                case 3: // PROFESSOR LOGIN
+                    if (userCount == 0) {
+                        System.out.println("\nNo accounts registered yet. Please register first.");
+                        break;
+                    }
+
+                    System.out.println("\n-----PROFESSOR LOGIN-----");
+                    System.out.print("Enter ID Number: ");
+                    String professorID = in.nextLine();
+                    System.out.print("Enter Password: ");
+                    String professorPassword = in.nextLine();
+
+                    Professor loggedInProfessor = null;
+                    for (int i = 0; i < userCount; i++) {
+                        if (users[i] instanceof Professor
+                                && users[i].idNumber != null && users[i].idNumber.equals(professorID)
+                                && users[i].password != null && users[i].password.equals(professorPassword)) {
+                            loggedInProfessor = (Professor) users[i];
+                            break;
+                        }
+                    }
+
+                    if (loggedInProfessor != null) {
+                        if (loggedInUser != null) {
+                            loggedInUser.isLoggedIn = false;
+                        }
+                        loggedInUser = loggedInProfessor;
+                        loggedInUser.isLoggedIn = true;
+                        System.out.println("\nLogin Successful!");
+                        loggedInUser.displayInfo();
+                    } else {
+                        System.out.println("Wrong ID Number or Password. Please try again.");
+                    }
                     break;
 
                 case 4: // LOGOUT
