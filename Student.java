@@ -6,7 +6,10 @@ public abstract class Student extends Person{
     protected SubjectItem[] subjects; // groups subject and units
     protected boolean meritScholar = false;
 
-    public Student(){};
+    public Student() {
+    super();
+    this.isStudent = true;
+    }
     
     public void displayInfo() {
         int choice = 0;
@@ -22,15 +25,16 @@ public abstract class Student extends Person{
                     subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
             }
 
+            System.out.printf("\nTotal Tution: %,.2f", computeTuition());
             System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
-            System.out.print("Status: ");
+            System.out.print("Academic Status: ");
             academicStatus();
 
             System.out.println("===================\n");
 
             System.out.println("1. Enter grades");
             System.out.println("2. Update information");
-            System.out.println("3. Return to main menu");
+            System.out.println("3. Logout");
             System.out.print("Enter choice: ");
             choice = in.nextInt();
             in.nextLine();
@@ -41,7 +45,9 @@ public abstract class Student extends Person{
                     break;
                 case 2:
                     super.updateInfo();
+                    break;
                 case 3:
+                    isLoggedIn = false;
                     break;
                 default:
                     System.out.println("Invalid choice. Please select between 1 and 3.");
@@ -104,11 +110,7 @@ public abstract class Student extends Person{
 
     public abstract void academicStatus();
 
-    public void updateInfo(){
-        super.updateInfo();
-    }
-
-    public static void computeTuition(){
-
+    public double computeTuition(){
+        return computeUnits() * 1200.0;
     }
 }
