@@ -10,14 +10,18 @@ public class Main {
 
         int choice = 0;
 
-        while (choice != 5) {
+        while (choice != 4) {
             System.out.println("\n===== UNIVERSITY INFORMATION MANAGEMENT SYSTEM =====");
             System.out.println("1. Register");
             System.out.println("2. Student Login");
             System.out.println("3. Professor Login");
-            System.out.println("4. Logout");
-            System.out.println("5. Exit");
+            System.out.println("4. Exit");
             System.out.print("Enter choice: ");
+            
+            while (!in.hasNextInt()) {
+                System.out.print("Invalid input. Enter a number between 1 and 4: ");
+                in.nextLine();
+            }
             choice = in.nextInt();
             in.nextLine();
 
@@ -41,32 +45,43 @@ public class Main {
                     int registerChoice = in.nextInt();
                     in.nextLine();
 
+                    Person newUser = null;
+
                     if (registerChoice == 1) {
                         UndergraduateStudent undergraduate = new UndergraduateStudent();
                         undergraduate.register();
-
-                        users[userCount] = undergraduate;
-                        userCount++;
-                        System.out.println("Student successfully registered in slot " + userCount);
-
+                        newUser = undergraduate;
                     } else if (registerChoice == 2) {
                         MasteralStudent masteral = new MasteralStudent();
-                        masteral.in = in;
+                        //masteral.in = in;
                         masteral.register();
-
-                        users[userCount] = masteral;
-                        userCount++;
-                        System.out.println("Masteral student successfully registered in slot " + userCount);
+                        newUser = masteral;
                     } else if (registerChoice == 3) {
                         Professor professor = new Professor();
-                        professor.in = in;
+                        //professor.in = in;
                         professor.register();
-
-                        users[userCount] = professor;
-                        userCount++;
-                        System.out.println("Professor successfully registered in slot " + userCount);
+                        newUser = professor;
                     } else {
                         System.out.println("Invalid account type. Please select between 1 and 3.");
+                        break;
+                    }
+
+                    // --- DUPLICATE ID VALIDATOR ---
+                    boolean idExists = false;
+                    for (int i = 0; i < userCount; i++) {
+                        if (users[i].idNumber != null && users[i].idNumber.equals(newUser.idNumber)) {
+                            idExists = true;
+                            break;
+                        }
+                    }
+
+                    if (idExists) {
+                        System.out.println("\n[Error] An account with ID Number '" + newUser.idNumber + "' already exists!");
+                        System.out.println("Registration cancelled. Please try registering again with a unique ID.");
+                    } else {
+                        users[userCount] = newUser;
+                        userCount++;
+                        System.out.println("Account successfully registered in slot " + userCount);
                     }
                     break;
                 }
@@ -77,7 +92,7 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("\n-----LOGIN-----");
+                    System.out.println("\n----- STUDENT LOGIN -----");
                     System.out.print("Enter ID Number: ");
                     String inputID = in.nextLine();
                     System.out.print("Enter Password: ");
@@ -85,7 +100,9 @@ public class Main {
 
                     boolean found = false;
                     for (int i = 0; i < userCount; i++) {
-                        if (users[i].idNumber != null && users[i].idNumber.equals(inputID)
+                        // Uses the clean isStudent() method instead of !users[i].isProfessor()
+                        if (users[i].isStudent
+                                && users[i].idNumber != null && users[i].idNumber.equals(inputID)
                                 && users[i].password != null && users[i].password.equals(inputPassword)) {
                             loggedInUser = users[i];
                             loggedInUser.isLoggedIn = true;
@@ -98,62 +115,51 @@ public class Main {
                         System.out.println("\nLogin Successful!");
                         loggedInUser.displayInfo();
                     } else {
-                        System.out.println("Wrong ID Number or Password. Please try again.");
+                        System.out.println("Wrong Student ID Number or Password. Please try again.");
                     }
                     break;
                 }
 
-                case 3: // PROFESSOR LOGIN
+                case 3: { // PROFESSOR LOGIN
                     if (userCount == 0) {
                         System.out.println("\nNo accounts registered yet. Please register first.");
                         break;
                     }
 
-                    System.out.println("\n-----PROFESSOR LOGIN-----");
+                    System.out.println("\n----- PROFESSOR LOGIN -----");
                     System.out.print("Enter ID Number: ");
-                    String professorID = in.nextLine();
+                    String inputID = in.nextLine();
                     System.out.print("Enter Password: ");
-                    String professorPassword = in.nextLine();
+                    String inputPassword = in.nextLine();
 
-                    Professor loggedInProfessor = null;
+                    boolean found = false;
                     for (int i = 0; i < userCount; i++) {
-                        if (users[i] instanceof Professor
-                                && users[i].idNumber != null && users[i].idNumber.equals(professorID)
-                                && users[i].password != null && users[i].password.equals(professorPassword)) {
-                            loggedInProfessor = (Professor) users[i];
+                        // Uses the isProfessor() method
+                        if (users[i].isProfessor
+                                && users[i].idNumber != null && users[i].idNumber.equals(inputID)
+                                && users[i].password != null && users[i].password.equals(inputPassword)) {
+                            loggedInUser = users[i];
+                            loggedInUser.isLoggedIn = true;
+                            found = true;
                             break;
                         }
                     }
 
-                    if (loggedInProfessor != null) {
-                        if (loggedInUser != null) {
-                            loggedInUser.isLoggedIn = false;
-                        }
-                        loggedInUser = loggedInProfessor;
-                        loggedInUser.isLoggedIn = true;
+                    if (found) {
                         System.out.println("\nLogin Successful!");
                         loggedInUser.displayInfo();
                     } else {
-                        System.out.println("Wrong ID Number or Password. Please try again.");
+                        System.out.println("Wrong Professor ID Number or Password. Please try again.");
                     }
                     break;
+                }
 
-                case 4: // LOGOUT
-                    if (loggedInUser != null) {
-                        loggedInUser.isLoggedIn = false;
-                        loggedInUser = null;
-                        System.out.println("\nYou logged out.");
-                    } else {
-                        System.out.println("\nYou are not logged in.");
-                    }
-                    break;
-
-                case 5: // EXIT
+                case 4: // EXIT
                     System.out.println("\nExiting program. Goodbye!");
                     break;
 
                 default:
-                    System.out.println("\nInvalid choice. Please select between 1 and 5.");
+                    System.out.println("\nInvalid choice. Please select between 1 and 4.");
             }
         }
 
