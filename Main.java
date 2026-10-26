@@ -99,13 +99,13 @@ public class Main {
                     String inputPassword = in.nextLine();
 
                     boolean found = false;
+                    
                     for (int i = 0; i < userCount; i++) {
-                        // Uses the clean isStudent() method instead of !users[i].isProfessor()
+                        // Uses the isStudent to verify as student
                         if (users[i].isStudent
                                 && users[i].idNumber != null && users[i].idNumber.equals(inputID)
                                 && users[i].password != null && users[i].password.equals(inputPassword)) {
                             loggedInUser = users[i];
-                            loggedInUser.isLoggedIn = true;
                             found = true;
                             break;
                         }
@@ -114,6 +114,7 @@ public class Main {
                     if (found) {
                         System.out.println("\nLogin Successful!");
                         loggedInUser.displayInfo();
+                        loggedInUser = null;
                     } else {
                         System.out.println("Wrong Student ID Number or Password. Please try again.");
                     }
@@ -134,12 +135,11 @@ public class Main {
 
                     boolean found = false;
                     for (int i = 0; i < userCount; i++) {
-                        // Uses the isProfessor() method
+                        // Uses the isProfessor to verify as professor
                         if (users[i].isProfessor
                                 && users[i].idNumber != null && users[i].idNumber.equals(inputID)
                                 && users[i].password != null && users[i].password.equals(inputPassword)) {
                             loggedInUser = users[i];
-                            loggedInUser.isLoggedIn = true;
                             found = true;
                             break;
                         }
@@ -148,6 +148,7 @@ public class Main {
                     if (found) {
                         System.out.println("\nLogin Successful!");
                         loggedInUser.displayInfo();
+                        loggedInUser = null;
                     } else {
                         System.out.println("Wrong Professor ID Number or Password. Please try again.");
                     }

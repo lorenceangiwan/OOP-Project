@@ -2,7 +2,6 @@ import java.util.*;
 
 public abstract class Person {
     protected String name, address, idNumber, password;
-    protected boolean isLoggedIn;
 
     // role flags here
     protected boolean isStudent = false;

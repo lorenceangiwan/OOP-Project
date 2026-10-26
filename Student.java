@@ -7,8 +7,7 @@ public abstract class Student extends Person{
     protected boolean meritScholar = false;
 
     public Student() {
-    super();
-    this.isStudent = true;
+    this.isStudent = true; //marks any student as true
     }
     
     public void displayInfo() {
@@ -47,7 +46,6 @@ public abstract class Student extends Person{
                     super.updateInfo();
                     break;
                 case 3:
-                    isLoggedIn = false;
                     break;
                 default:
                     System.out.println("Invalid choice. Please select between 1 and 3.");

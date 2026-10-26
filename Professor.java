@@ -8,8 +8,7 @@ public class Professor extends Person implements Taxable {
     Scanner in = new Scanner(System.in);
 
     public Professor() {
-    super();
-    this.isProfessor = true; // Automatically marks any professor as true
+    this.isProfessor = true; // marks any professor as true
     }
 
     public void displayInfo() {
@@ -39,7 +38,6 @@ public class Professor extends Person implements Taxable {
                     updateInfo();
                     break;
                 case "3":
-                    isLoggedIn = false;
                     return;
                 default:
                     System.out.println("Invalid choice. Please select between 1 and 3.");
