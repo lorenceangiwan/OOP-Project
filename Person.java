@@ -84,7 +84,7 @@ public abstract class Person {
         }
     }
 
-    private boolean confirmPassword() {
+    public boolean confirmPassword() {
         System.out.print("Enter your current password to continue: ");
         String entered = in.nextLine();
         if (password.equals(entered)) {

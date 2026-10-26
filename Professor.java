@@ -19,10 +19,10 @@ public class Professor extends Person implements Taxable {
             System.out.println("Address: " + address);
             System.out.println("Department: " + department);
             System.out.println("Academic Rank: " + rank.getTitle());
-            System.out.printf("\nDaily Earnings: %,.2f", rank.dailyEarnings());
-            System.out.printf("\nGross Pay: %,.2f", rank.getMonthlySalary());
+            System.out.printf("\nDaily Earnings: Php%,.2f", rank.dailyEarnings());
+            System.out.printf("\nGross Pay: Php%,.2f", rank.getMonthlySalary());
             System.out.printf("\nTax Rate: %.1f%%", taxRate * 100);
-            System.out.printf("\nNet Pay: %,.2f", computeTax());
+            System.out.printf("\nNet Pay: Php%,.2f", computeTax());
 
             System.out.println("\n===================\n");
 
@@ -232,6 +232,10 @@ public class Professor extends Person implements Taxable {
         for (int i = 0; i < subjects.length; i++) {
             System.out.println("- " + subjects[i].getName());
         }
+    }
+
+    public boolean confirmPassword(){
+        return super.confirmPassword();
     }
 
     // Getters and Setters

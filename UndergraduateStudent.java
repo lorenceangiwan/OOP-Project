@@ -79,4 +79,8 @@ public class UndergraduateStudent extends Student {
             System.out.println("None");
         }
     }
+
+    public boolean confirmPassword(){
+        return super.confirmPassword();
+    }
 }

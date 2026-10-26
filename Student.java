@@ -25,7 +25,7 @@ public abstract class Student extends Person{
                     subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
             }
 
-            System.out.printf("\nTotal Tution: %,.2f", computeTuition());
+            System.out.printf("\nTotal Tution: Php%,.2f", computeTuition());
             System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
             System.out.print("Academic Status: ");
             academicStatus();
@@ -112,5 +112,9 @@ public abstract class Student extends Person{
 
     public double computeTuition(){
         return computeUnits() * 1200.0;
+    }
+
+    public boolean confirmPassword(){
+        return confirmPassword();
     }
 }
