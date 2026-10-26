@@ -7,7 +7,10 @@ public class Professor extends Person implements Taxable {
 
     Scanner in = new Scanner(System.in);
 
-    public Professor() {}
+    public Professor() {
+    super();
+    this.isProfessor = true; // Automatically marks any professor as true
+    }
 
     public void displayInfo() {
         while (true) {
@@ -21,11 +24,11 @@ public class Professor extends Person implements Taxable {
             System.out.printf("\nTax Rate: %.1f%%", taxRate * 100);
             System.out.printf("\nNet Pay: %,.2f", computeTax());
 
-            System.out.println("===================\n");
+            System.out.println("\n===================\n");
 
             System.out.println("1. View teaching load");
             System.out.println("2. Update Information");
-            System.out.println("3. Return to main menu");
+            System.out.println("3. Logout");
             System.out.print("Enter choice: ");
 
             switch (in.nextLine().trim()) {
@@ -36,6 +39,7 @@ public class Professor extends Person implements Taxable {
                     updateInfo();
                     break;
                 case "3":
+                    isLoggedIn = false;
                     return;
                 default:
                     System.out.println("Invalid choice. Please select between 1 and 3.");
@@ -52,17 +56,17 @@ public class Professor extends Person implements Taxable {
 
         // Course selection
         while (true) {
-            System.out.println("\nSelect assigned course:");
+            System.out.println("\nSelect assigned Department:");
             System.out.println("1. BSCS");
-            System.out.println("2. BSIT");
-            System.out.println("3. MSCS");
+            System.out.println("2. MSCS");
+            System.out.println("3. BSIT");
             System.out.println("4. MSIT");
             System.out.print("Enter choice (1-4): ");
             
             switch (in.nextLine().trim()) {
                 case "1": department = "BSCS"; break;
-                case "2": department = "BSIT"; break;
-                case "3": department = "MSCS"; break;
+                case "2": department = "MSCS"; break;
+                case "3": department = "BSIT"; break;
                 case "4": department = "MSIT"; break;
                 
                 default:
@@ -231,8 +235,8 @@ public class Professor extends Person implements Taxable {
     }
 
     // Getters and Setters
-    public String getCourse() { return department; }
-    public void setCourse(String course) { this.department = course; }
+    public String getDepartment() { return department; }
+    public void setDeparment(String department) { this.department = department; }
 
     public AcademicRank getRank() { return rank; }
     public void setRank(AcademicRank rank) { this.rank = rank; }
