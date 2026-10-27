@@ -44,7 +44,7 @@ public abstract class Student extends Person{
                     inputGrades();
                     break;
                 case 2:
-                    super.updateInfo();
+                    updateInfo();
                     break;
                 case 3:
                     break;
@@ -54,9 +54,9 @@ public abstract class Student extends Person{
         }
     }
 
-    public void updateInfo(){
-        super.updateInfo();
-    }
+    public abstract void updateInfo();
+
+    public abstract void register();
 
     public int computeUnits(){
         totalUnits = 0;
@@ -113,15 +113,13 @@ public abstract class Student extends Person{
 
     public abstract void academicStatus();
 
-    public double computeTuition(){
-        return computeUnits() * 1200.0;
-    }
+    public abstract double computeTuition();
 
     public abstract String isMerit();
 
     public abstract double discountedTuition();
 
     public boolean confirmPassword(){
-        return confirmPassword();
+        return super.confirmPassword();
     }
 }

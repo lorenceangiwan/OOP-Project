@@ -81,6 +81,8 @@ public class Main {
                     } else {
                         users[userCount] = newUser;
                         userCount++;
+
+                        System.out.println("Registration Complete! " + newUser.name + " has been added.");
                         System.out.println("Account successfully registered in slot " + userCount);
                     }
                     break;

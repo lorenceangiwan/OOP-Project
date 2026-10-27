@@ -16,6 +16,7 @@ public class Professor extends Person implements Taxable {
             System.out.println("\n=== PROFESSOR DASHBOARD ===");
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
+            System.out.println("ID Number: " + idNumber);
             System.out.println("Department: " + department);
             System.out.println("Academic Rank: " + rank.getTitle());
             System.out.printf("\nDaily Earnings: Php%,.2f", rank.dailyEarnings());
@@ -109,8 +110,6 @@ public class Professor extends Person implements Taxable {
                 System.out.println("Input failed. Password must be at least 6 characters long.");
             }
         } while (password.length() <= 5);
-
-        System.out.println("Registration completed successfully!");
     }
 
     public void updateInfo() {
