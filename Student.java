@@ -4,7 +4,6 @@ public abstract class Student extends Person{
     protected double totalGWA;
     protected int totalUnits;
     protected SubjectItem[] subjects; // groups subject and units
-    protected boolean meritScholar = false;
 
     public Student() {
     this.isStudent = true; //marks any student as true
@@ -24,11 +23,13 @@ public abstract class Student extends Person{
                     subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
             }
 
-            System.out.printf("\nTotal Tution: Php%,.2f", computeTuition());
             System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
             System.out.print("Academic Status: ");
             academicStatus();
-
+            System.out.printf("\nBase Tuition: Php%,.2f", computeTuition());
+            System.out.print("\nMerit: " + isMerit());
+            System.out.printf("\nDiscounted Tuition: Php%,.2f%n", discountedTuition());
+            
             System.out.println("===================\n");
 
             System.out.println("1. Enter grades");
@@ -51,6 +52,10 @@ public abstract class Student extends Person{
                     System.out.println("Invalid choice. Please select between 1 and 3.");
             }
         }
+    }
+
+    public void updateInfo(){
+        super.updateInfo();
     }
 
     public int computeUnits(){
@@ -110,6 +115,35 @@ public abstract class Student extends Person{
 
     public double computeTuition(){
         return computeUnits() * 1200.0;
+    }
+
+    public String isMerit() {
+    double gwa = computeGWA(); // Calling once to avoid recalculating multiple times
+
+        if (gwa >= 1.00 && gwa <= 1.25) {
+            return "Gold (100% Discount)";
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return "Silver Merit (50% Discount)";
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return "Bronze Merit (25% Discount)";
+        } else {
+            return "None";
+        }
+    }
+
+    public double discountedTuition() {
+        double baseTuition = computeTuition();
+        double gwa = computeGWA();
+
+        if (gwa <= 1.25) {
+            return baseTuition - baseTuition * 1.0; // Gold (100% discount)
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return baseTuition - baseTuition * 0.50; // Silver Merit (50% discount)
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return baseTuition - baseTuition * 0.25; // Bronze Merit (25% discount)
+        } else {
+            return baseTuition; // No discount
+        }
     }
 
     public boolean confirmPassword(){

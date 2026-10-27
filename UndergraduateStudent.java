@@ -4,6 +4,10 @@ public class UndergraduateStudent extends Student {
         super.displayInfo();
     }
 
+    public void updateInfo(){
+        super.updateInfo();
+    }
+
     public void register(){
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -62,6 +66,13 @@ public class UndergraduateStudent extends Student {
         } while (password.isEmpty() || password.length() <= 5);
 
         System.out.println("Registration Complete! " + name + " has been added.");
+    }
+
+    public String isMerit(){
+        return super.isMerit();
+    }
+    public double discountedTuition(){
+        return super.discountedTuition();
     }
 
     public void academicStatus(){
