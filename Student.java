@@ -1,75 +1,118 @@
-public class Student extends Person{
-    private String course;
-    private String year;
-    private SubjectItem[] subjects; // Replaces separate subject and grade arrays
-    private boolean meritScholar = false;
+public abstract class Student extends Person{
+    protected String course;
+    protected String year;
+    protected double totalGWA;
+    protected int totalUnits;
+    protected SubjectItem[] subjects; // groups subject and units
+    protected boolean meritScholar = false;
 
-    public Student(){};
-
-    public void addInfo() {
-    System.out.println("-----STUDENT INFORMATION-----");
-
-    // 1. Select Course with Input Validation
-    int courseChoice = 0;
-    do {
-        System.out.println("Select Course:");
-        System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
-        System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
-        System.out.print("Enter choice (1 or 2): ");
-
-        if (in.hasNextInt()) {
-            courseChoice = in.nextInt();
-            in.nextLine(); // Clear the newline character from the buffer
-            
-            if (courseChoice != 1 && courseChoice != 2) {
-                System.out.println("Invalid selection. Please choose 1 or 2.\n");
+    public Student() {
+    this.isStudent = true; //marks any student as true
+    }
+    
+    public void displayInfo() {
+        int choice = 0;
+        while (choice != 3) {
+            System.out.println("\n===== STUDENT DASHBOARD =====");
+            System.out.println("Name: " + name);
+            System.out.println("Address: " + address);
+            System.out.println("ID Number: " + idNumber);
+            System.out.println("Course: " + course);
+            System.out.println("Assigned Subjects for this Semester:");
+            for (int i = 0; i < subjects.length; i++) {
+                System.out.printf("- %s (%d units): %.2f%n",
+                    subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
             }
-        } else {
-            System.out.println("Invalid input! Please enter a number.\n");
-            in.nextLine(); // Clear invalid non-integer input
-        }
-    } while (courseChoice != 1 && courseChoice != 2);
 
-    // 2. Assign Course Name and Specific Subjects
-    switch (courseChoice) {
-    case 1:
-        course = "BSCS";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Data Structures", 3),
-            new SubjectItem("Discrete Mathematics", 3),
-            new SubjectItem("Object-Oriented Programming", 5),
-            new SubjectItem("Information Management", 3)
-        };
-        break;
-    case 2:
-        course = "BSIT";
-        subjects = new SubjectItem[] {
-            new SubjectItem("Networking", 3),
-            new SubjectItem("Database Systems", 3),
-            new SubjectItem("Web Development", 5),
-            new SubjectItem("System Administration", 3)
-        };
-        break;
-}
-    // 3. Enter Year Level
-    do {
-        System.out.print("Enter Year Level (e.g., 1, 2, 3, 4): ");
-        year = in.nextLine().trim();
-        if (year.isEmpty()) {
-            System.out.println("Year level must not be empty.");
-        }
-    } while (year.isEmpty());
+            System.out.printf("\nTotal Tution: Php%,.2f", computeTuition());
+            System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
+            System.out.print("Academic Status: ");
+            academicStatus();
 
-        System.out.println("\n===== STUDENT INFORMATION =====");
-        System.out.println("Course: " + course);
-        System.out.println("Year Level: " + year);
-        System.out.println("Assigned Subjects:");
-        for (int i = 0; i < subjects.length; i++) {
-            System.out.println("- " + subjects[i].getName());
+            System.out.println("===================\n");
+
+            System.out.println("1. Enter grades");
+            System.out.println("2. Update information");
+            System.out.println("3. Logout");
+            System.out.print("Enter choice: ");
+            choice = in.nextInt();
+            in.nextLine();
+
+            switch (choice) {
+                case 1:
+                    inputGrades();
+                    break;
+                case 2:
+                    super.updateInfo();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select between 1 and 3.");
+            }
         }
-        System.out.println("===============================\n");
-        System.out.println("Student information saved.");
     }
 
+    public int computeUnits(){
+        totalUnits = 0;
+
+        for (int i = 0; i < subjects.length; i++) {
+            totalUnits = totalUnits + subjects[i].getUnits();
+        }
+        return totalUnits;
+    }
     
+    public void inputGrades() {
+    System.out.println("----- ENTER GRADES -----");
+    for (int i = 0; i < subjects.length; i++) {
+        double grade = 0.0;
+        boolean isValid = false;
+
+        do {
+            System.out.print("Enter grade for " + subjects[i].getName() + " (" + subjects[i].getUnits() + " units): ");
+            
+            if (in.hasNextDouble()) {
+                grade = in.nextDouble();
+                in.nextLine();
+
+                // grade range
+                if (grade >= 1.0 && grade <= 5.0) { 
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid grade range. Please enter a value between 1.0 and 5.0.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a numeric grade.");
+                in.nextLine();
+            }
+        } while (!isValid);
+
+        // Save grade directly into the specific SubjectItem object
+        subjects[i].setGrade(grade);
+    }
+    System.out.println("All grades successfully recorded!\n");
+    }
+
+    public double computeGWA() {
+        double totalGrades = 0.0;
+
+        for (int i = 0; i < subjects.length; i++) {
+            SubjectItem subject = subjects[i];
+
+            totalGrades = totalGrades + subject.getGrade() * subject.getUnits();
+        }
+
+        totalGWA = totalGrades / computeUnits();
+        return totalGWA;
+    }
+
+    public abstract void academicStatus();
+
+    public double computeTuition(){
+        return computeUnits() * 1200.0;
+    }
+
+    public boolean confirmPassword(){
+        return confirmPassword();
+    }
 }
