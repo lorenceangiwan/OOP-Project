@@ -62,6 +62,35 @@ public class MasteralStudent extends Student {
         System.out.println("Registration Complete! " + name + " has been added.");
     }
 
+    public String isMerit() {
+        double gwa = computeGWA();
+
+        if (gwa >= 1.00 && gwa <= 1.25) {
+            return "Gold (100% Discount)";
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return "Silver Merit (50% Discount)";
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return "Bronze Merit (25% Discount)";
+        } else {
+            return "None";
+        }
+    }
+
+    public double discountedTuition() {
+        double baseTuition = computeTuition();
+        double gwa = computeGWA();
+
+        if (gwa >= 1.00 && gwa <= 1.25) {
+            return baseTuition - baseTuition * 1.0;
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return baseTuition - baseTuition * 0.50;
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return baseTuition - baseTuition * 0.25;
+        } else {
+            return baseTuition;
+        }
+    }
+
     public void academicStatus() {
         if (computeGWA() >= 1.00 && computeGWA() <= 1.99) {
             System.out.println("Outstanding");

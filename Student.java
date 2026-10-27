@@ -4,7 +4,6 @@ public abstract class Student extends Person{
     protected double totalGWA;
     protected int totalUnits;
     protected SubjectItem[] subjects; // groups subject and units
-    protected boolean meritScholar = false;
 
     public Student() {
     this.isStudent = true; //marks any student as true
@@ -24,11 +23,13 @@ public abstract class Student extends Person{
                     subjects[i].getName(), subjects[i].getUnits(), subjects[i].getGrade());
             }
 
-            System.out.printf("\nTotal Tution: Php%,.2f", computeTuition());
             System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
             System.out.print("Academic Status: ");
             academicStatus();
-
+            System.out.printf("\nBase Tuition: Php%,.2f", computeTuition());
+            System.out.print("\nMerit: " + isMerit());
+            System.out.printf("\nDiscounted Tuition: Php%,.2f%n", discountedTuition());
+            
             System.out.println("===================\n");
 
             System.out.println("1. Enter grades");
@@ -51,6 +52,10 @@ public abstract class Student extends Person{
                     System.out.println("Invalid choice. Please select between 1 and 3.");
             }
         }
+    }
+
+    public void updateInfo(){
+        super.updateInfo();
     }
 
     public int computeUnits(){
@@ -111,6 +116,10 @@ public abstract class Student extends Person{
     public double computeTuition(){
         return computeUnits() * 1200.0;
     }
+
+    public abstract String isMerit();
+
+    public abstract double discountedTuition();
 
     public boolean confirmPassword(){
         return confirmPassword();

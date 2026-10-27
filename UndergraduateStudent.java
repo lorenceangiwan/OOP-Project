@@ -4,6 +4,10 @@ public class UndergraduateStudent extends Student {
         super.displayInfo();
     }
 
+    public void updateInfo(){
+        super.updateInfo();
+    }
+
     public void register(){
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -62,6 +66,35 @@ public class UndergraduateStudent extends Student {
         } while (password.isEmpty() || password.length() <= 5);
 
         System.out.println("Registration Complete! " + name + " has been added.");
+    }
+
+    public String isMerit() {
+    double gwa = computeGWA(); // Calling once to avoid recalculating multiple times
+
+        if (gwa >= 1.00 && gwa <= 1.25) {
+            return "Gold (100% Discount)";
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return "Silver Merit (50% Discount)";
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return "Bronze Merit (25% Discount)";
+        } else {
+            return "None";
+        }
+    }
+
+    public double discountedTuition(){
+        double baseTuition = computeTuition();
+        double gwa = computeGWA();
+
+        if (gwa <= 1.25) {
+            return baseTuition - baseTuition * 1.0; // Gold (100% discount)
+        } else if (gwa > 1.25 && gwa <= 1.50) {
+            return baseTuition - baseTuition * 0.50; // Silver Merit (50% discount)
+        } else if (gwa > 1.50 && gwa <= 1.75) {
+            return baseTuition - baseTuition * 0.25; // Bronze Merit (25% discount)
+        } else {
+            return baseTuition; // No discount
+        }
     }
 
     public void academicStatus(){
