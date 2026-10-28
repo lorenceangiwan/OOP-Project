@@ -1,5 +1,6 @@
 public abstract class Student extends Person{
     protected String course;
+    protected String degreeType;
     protected String year;
     protected double totalGWA;
     protected int totalUnits;
@@ -7,7 +8,7 @@ public abstract class Student extends Person{
 
     public Student() {}
     
-    public void displayInfo() {
+    public  void displayInfo() {
         int choice = 0;
         
         while (choice != 3) {
@@ -15,6 +16,7 @@ public abstract class Student extends Person{
             System.out.println("Name: " + name);
             System.out.println("Address: " + address);
             System.out.println("ID Number: " + idNumber);
+            System.out.println("Degree Type: " + degreeType);
             System.out.println("Course: " + course);
             System.out.println("Assigned Subjects for this Semester:");
             for (int i = 0; i < subjects.length; i++) {
@@ -57,10 +59,13 @@ public abstract class Student extends Person{
         }
     }
 
+
     public abstract void updateInfo();
 
     public abstract void register();
 
+    public abstract void selectCourse();
+    
     public int computeUnits(){
         totalUnits = 0;
 
