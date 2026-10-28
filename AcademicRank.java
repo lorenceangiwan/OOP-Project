@@ -1,3 +1,4 @@
+// Stores a professor's rank and the salary assigned to that rank.
 public class AcademicRank {
     private String title;
     private double monthlySalary;
@@ -10,6 +11,7 @@ public class AcademicRank {
     public String getTitle() { return title; }
     public double getMonthlySalary() { return monthlySalary; }
 
+    // Estimates daily pay using a standard 22-workday month.
     public double dailyEarnings() {
         return monthlySalary / 22.0; // Assumes 22 days of work in a month
     }

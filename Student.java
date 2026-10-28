@@ -1,3 +1,4 @@
+// Holds behavior shared by undergraduate and graduate student accounts.
 public abstract class Student extends Person{
     protected String course;
     protected String degreeType;
@@ -75,6 +76,7 @@ public abstract class Student extends Person{
         return totalUnits;
     }
     
+    // Validates and stores a grade for each subjects
     public void inputGrades() {
     System.out.println("\n----- ENTER GRADES -----");
     for (int i = 0; i < subjects.length; i++) {

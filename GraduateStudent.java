@@ -1,3 +1,4 @@
+// Adds graduate degree selection and graduate tuition rules to Student.
 public class GraduateStudent extends Student {
 
     public void displayInfo(){
@@ -92,6 +93,7 @@ public class GraduateStudent extends Student {
         }
     }
 
+    // Collects account details, degree, course, and login credentials.
     public void register() {
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -128,6 +130,7 @@ public class GraduateStudent extends Student {
 
     }
 
+    // Reads whether the student is pursuing a master's or doctorate degree.
     public void selectDegreeType() {
         System.out.println("\nSelect Degree Type:");
         System.out.println("[1] Masteral");
@@ -157,6 +160,7 @@ public class GraduateStudent extends Student {
         }
     }
 
+    // Limits course choices to those offered under the selected degree type.
     public void selectCourse() {
         System.out.println();
         if (degreeType.equals("Masteral")) {
@@ -228,6 +232,7 @@ public class GraduateStudent extends Student {
 
     public double computeTuition(){
         double tuitionPerUnit;
+        // Doctoral units cost more than master's units.
         if (degreeType.equals("Masteral")) {
             tuitionPerUnit = 3500.0;
         } else {

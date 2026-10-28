@@ -44,6 +44,7 @@ public class Professor extends Person implements Taxable {
         }
     }
     
+    // Collects profile, department, rank, and login credentials.
     public void register() {
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -214,11 +215,13 @@ public class Professor extends Person implements Taxable {
         }
     }
 
+    // Calculates take-home monthly pay after applying the configured tax rate.
     public double computeTax(){
         double taxAmount = rank.getMonthlySalary() * taxRate;
         return rank.getMonthlySalary() - taxAmount;
     }
 
+    // Lists the subjects in the catalog for the professor's assigned department.
     public void teachingLoad() {
         System.out.println("\nTeaching load for " + department + ":");
         SubjectItem[] subjects = SubjectItem.courseSubjects(department);

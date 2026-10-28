@@ -1,5 +1,6 @@
 public class UndergraduateStudent extends Student {
 
+    // Uses the common student dashboard.
     public void displayInfo() {
         super.displayInfo();
     }
@@ -90,6 +91,7 @@ public class UndergraduateStudent extends Student {
         }
     }
 
+    // Collects the student's profile, course, and login credentials.
     public void register(){
         System.out.println("\n-----REGISTRATION-----");
         degreeType = "Undergraduate";
@@ -166,6 +168,7 @@ public class UndergraduateStudent extends Student {
     }
 
     public void academicStatus(){
+        // Convert the computed average into the undergraduate status category.
         if(computeGWA() >= 1.00 && computeGWA() <= 1.99) {
             System.out.println("Outstanding");
         } else if(computeGWA() >= 2.00 && computeGWA() <= 2.99){
@@ -185,6 +188,7 @@ public class UndergraduateStudent extends Student {
         return computeUnits() * 1200.0;
     }
 
+    // Describes the merit award determined by the student's GWA.
     public String isMerit() {
     double gwa = computeGWA(); // Calling once to avoid recalculating multiple times
 
@@ -203,6 +207,7 @@ public class UndergraduateStudent extends Student {
         double baseTuition = computeTuition();
         double gwa = computeGWA();
 
+        // Apply the tuition reduction according to student's merit tier.
         if (gwa >= 1.00 && gwa <= 1.25) {
             return baseTuition - baseTuition * 1.0; // Gold (100% discount)
         } else if (gwa > 1.25 && gwa <= 1.50) {
