@@ -3,10 +3,6 @@ import java.util.*;
 public abstract class Person {
     protected String name, address, idNumber, password;
 
-    // role flags here
-    protected boolean isStudent = false;
-    protected boolean isProfessor = false;
-
     Scanner in = new Scanner(System.in);
 
     public Person() {}

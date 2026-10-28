@@ -5,9 +5,7 @@ public abstract class Student extends Person{
     protected int totalUnits;
     protected SubjectItem[] subjects; // groups subject and units
 
-    public Student() {
-    this.isStudent = true; //marks any student as true
-    }
+    public Student() {}
     
     public void displayInfo() {
         int choice = 0;
