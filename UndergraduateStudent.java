@@ -3,7 +3,7 @@ public class UndergraduateStudent extends Student {
     public void displayInfo() {
         super.displayInfo();
     }
-
+    
     public void updateInfo(){
         boolean done = false;
 
@@ -69,38 +69,14 @@ public class UndergraduateStudent extends Student {
                         break;
                     }
 
-                    int courseChoice = 0;
-                    while (courseChoice != 1 && courseChoice != 2) {
-                        System.out.println("Select Course:");
-                        System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
-                        System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
-                        System.out.print("Enter choice (1 or 2): ");
+                    String oldCourse = course;
+                    selectCourse();
 
-                        if (in.hasNextInt()) {
-                            courseChoice = in.nextInt();
-                            in.nextLine();
-                            if (courseChoice != 1 && courseChoice != 2) {
-                                System.out.println("Invalid selection. Please choose 1 or 2.\n");
-                            }
-                        } else {
-                            System.out.println("Invalid input! Please enter a number.\n");
-                            in.nextLine();
-                        }
-                    }
-
-                    String newCourse;
-                    if (courseChoice == 1) {
-                        newCourse = "BSCS";
-                    } else {
-                        newCourse = "BSIT";
-                    }
-
-                    if (newCourse.equals(course)) {
+                    if (oldCourse.equals(course)) {
                         System.out.println("You are already enrolled in " + course + ". Your grades were not changed.");
                         break;
                     }
 
-                    course = newCourse;
                     subjects = SubjectItem.courseSubjects(course);
                     System.out.println("Course updated to " + course + ". Subjects and grades have been reset.");
                     break;
@@ -131,37 +107,13 @@ public class UndergraduateStudent extends Student {
 
     public void register(){
         System.out.println("\n-----REGISTRATION-----");
+        degreeType = "Undergraduate";
         System.out.print("Enter Full Name: ");
         name = in.nextLine();
         System.out.print("Enter address: ");
         address = in.nextLine();
 
-        int courseChoice = 0;
-        do {
-            System.out.println("Select Course:");
-            System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
-            System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
-            System.out.print("Enter choice (1 or 2): ");
-
-            if (in.hasNextInt()) {
-                courseChoice = in.nextInt();
-                in.nextLine();
-
-                if (courseChoice != 1 && courseChoice != 2) {
-                    System.out.println("Invalid selection. Please choose 1 or 2.\n");
-                }
-            } else {
-                System.out.println("Invalid input! Please enter a number.\n");
-                in.nextLine(); // Clear invalid non-integer input
-            }
-        } while (courseChoice != 1 && courseChoice != 2);
-
-        // 2. Assign Course String
-        if (courseChoice == 1) {
-            course = "BSCS";
-        } else {
-            course = "BSIT";
-        }
+        selectCourse();
         // Fetch subjects dynamically from the SubjectItem catalog class
         subjects = SubjectItem.courseSubjects(course);
         System.out.println("Chosen course: " + course);
@@ -186,6 +138,34 @@ public class UndergraduateStudent extends Student {
             }
         } while (password.isEmpty() || password.length() <= 5);
 
+    }
+
+    public void selectCourse() {
+        int courseChoice = 0;
+        while (courseChoice != 1 && courseChoice != 2) {
+            System.out.println("Select Course:");
+            System.out.println("[1] Bachelor of Science in Computer Science (BSCS)");
+            System.out.println("[2] Bachelor of Science in Information Technology (BSIT)");
+            System.out.print("Enter choice (1 or 2): ");
+
+            if (in.hasNextInt()) {
+                courseChoice = in.nextInt();
+                in.nextLine();
+
+                if (courseChoice != 1 && courseChoice != 2) {
+                    System.out.println("Invalid selection. Please choose 1 or 2.\n");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number.\n");
+                in.nextLine();
+            }
+        }
+
+        if (courseChoice == 1) {
+            course = "BSCS";
+        } else {
+            course = "BSIT";
+        }
     }
 
     public int computeUnits(){
