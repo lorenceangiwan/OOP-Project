@@ -54,7 +54,15 @@ public class MasteralStudent extends Student {
                 case "4": {
                     System.out.println("Changing course will replace your subjects and reset their grades.");
                     System.out.print("Continue? (y/n): ");
-                    if (!in.nextLine().trim().equalsIgnoreCase("y")) {
+
+                    String confirmation = in.nextLine().trim();
+                    while (!confirmation.equalsIgnoreCase("y") && !confirmation.equalsIgnoreCase("n")) {
+                        System.out.println("Invalid input. Please enter y or n.");
+                        System.out.print("Continue? (y/n): ");
+                        confirmation = in.nextLine().trim();
+                    }
+                    if (confirmation.equalsIgnoreCase("n")) {
+                        System.out.println("Cancelled.");
                         break;
                     }
 
@@ -201,7 +209,7 @@ public class MasteralStudent extends Student {
     }
 
     public double computeTuition(){
-        return computeUnits() * 18200.0;
+        return computeUnits() * 15600.0;
     }
 
     public String isMerit() {
@@ -210,9 +218,9 @@ public class MasteralStudent extends Student {
         if (gwa >= 1.00 && gwa <= 1.25) {
             return "Gold (100% Discount)";
         } else if (gwa > 1.25 && gwa <= 1.50) {
-            return "Silver Merit (50% Discount)";
+            return "Silver(50% Discount)";
         } else if (gwa > 1.50 && gwa <= 1.75) {
-            return "Bronze Merit (25% Discount)";
+            return "Bronze (25% Discount)";
         } else {
             return "None";
         }

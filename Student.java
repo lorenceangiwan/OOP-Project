@@ -11,6 +11,7 @@ public abstract class Student extends Person{
     
     public void displayInfo() {
         int choice = 0;
+        
         while (choice != 3) {
             System.out.println("\n===== STUDENT DASHBOARD =====");
             System.out.println("Name: " + name);
@@ -36,6 +37,10 @@ public abstract class Student extends Person{
             System.out.println("2. Update information");
             System.out.println("3. Logout");
             System.out.print("Enter choice: ");
+            while (!in.hasNextInt()) {
+                System.out.print("Invalid input. Enter a number between 1 and 3: ");
+                in.nextLine();
+            }
             choice = in.nextInt();
             in.nextLine();
 
@@ -68,7 +73,7 @@ public abstract class Student extends Person{
     }
     
     public void inputGrades() {
-    System.out.println("----- ENTER GRADES -----");
+    System.out.println("\n----- ENTER GRADES -----");
     for (int i = 0; i < subjects.length; i++) {
         double grade = 0.0;
         boolean isValid = false;
