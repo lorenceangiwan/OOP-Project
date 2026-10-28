@@ -33,7 +33,7 @@ public class Main {
 
                     System.out.println("\n===== CHOOSE ACCOUNT TYPE =====");
                     System.out.println("1. Undergraduate Student");
-                    System.out.println("2. Masteral Student");
+                    System.out.println("2. Graduate Student");
                     System.out.println("3. Professor");
                     System.out.print("Enter choice: ");
 
@@ -51,9 +51,9 @@ public class Main {
                         undergraduate.register();
                         newUser = undergraduate;
                     } else if (registerChoice == 2) {
-                        MasteralStudent masteral = new MasteralStudent();
-                        masteral.register();
-                        newUser = masteral;
+                        GraduateStudent graduate = new GraduateStudent();
+                        graduate.register();
+                        newUser = graduate;
                     } else if (registerChoice == 3) {
                         Professor professor = new Professor();
                         professor.register();
