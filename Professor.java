@@ -7,9 +7,7 @@ public class Professor extends Person implements Taxable {
 
     Scanner in = new Scanner(System.in);
 
-    public Professor() {
-    this.isProfessor = true; // marks any professor as true
-    }
+    public Professor() {}
 
     public void displayInfo() {
         while (true) {
