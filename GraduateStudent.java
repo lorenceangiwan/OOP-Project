@@ -11,11 +11,10 @@ public class GraduateStudent extends Student {
             System.out.println("\n-----CHANGE STUDENT INFORMATION-----");
             System.out.println("1. Name (" + name + ")");
             System.out.println("2. Address (" + address + ")");
-            System.out.println("3. ID Number (" + idNumber + ")");
             System.out.println("Degree Type: " + degreeType);
-            System.out.println("4. Course (" + course + ")");
-            System.out.println("5. Password");
-            System.out.println("6. Done");
+            System.out.println("3. Course (" + course + ")");
+            System.out.println("4. Password");
+            System.out.println("5. Done");
             System.out.print("What do you want to change? ");
 
             switch (in.nextLine().trim()) {
@@ -41,21 +40,7 @@ public class GraduateStudent extends Student {
                     }
                     break;
 
-                case "3":
-                    if (!confirmPassword()) {
-                        break;
-                    }
-                    System.out.print("Enter new ID Number: ");
-                    String newID = in.nextLine().trim();
-                    if (newID.isEmpty()) {
-                        System.out.println("Input failed. ID Number must not be empty.");
-                    } else {
-                        idNumber = newID;
-                        System.out.println("ID Number updated.");
-                    }
-                    break;
-
-                case "4": {
+                case "3": {
                     System.out.println("Changing course will replace your subjects and reset their grades.");
                     System.out.print("Continue? (y/n): ");
 
@@ -84,7 +69,7 @@ public class GraduateStudent extends Student {
                     break;
                 }
 
-                case "5":
+                case "4":
                     if (!confirmPassword()) {
                         break;
                     }
@@ -98,7 +83,7 @@ public class GraduateStudent extends Student {
                     }
                     break;
                     
-                case "6":
+                case "5":
                     done = true;
                     break;
                 default:

@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int capacity = 10;
+        int capacity = 15;
         Person[] users = new Person[capacity];
         int userCount = 0;
         Person loggedInUser = null;
