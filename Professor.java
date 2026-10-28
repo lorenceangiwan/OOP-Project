@@ -58,16 +58,20 @@ public class Professor extends Person implements Taxable {
             System.out.println("2. MSCS");
             System.out.println("3. BSIT");
             System.out.println("4. MSIT");
-            System.out.print("Enter choice (1-4): ");
+            System.out.println("5. PhDCS");
+            System.out.println("6. PhDIT");
+            System.out.print("Enter choice (1-6): ");
             
             switch (in.nextLine().trim()) {
                 case "1": department = "BSCS"; break;
                 case "2": department = "MSCS"; break;
                 case "3": department = "BSIT"; break;
                 case "4": department = "MSIT"; break;
+                case "5": department = "PhDCS"; break;
+                case "6": department = "PhDIT"; break;
                 
                 default:
-                    System.out.println("Invalid choice. Please enter a number from 1 to 4.");
+                    System.out.println("Invalid choice. Please enter a number from 1 to 6.");
                     continue;
             }
             break;
