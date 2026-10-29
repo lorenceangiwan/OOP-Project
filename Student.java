@@ -9,7 +9,7 @@ public abstract class Student extends Person{
 
     public Student() {}
     
-    public  void displayInfo() {
+    public void displayInfo() {
         int choice = 0;
         
         while (choice != 3) {
