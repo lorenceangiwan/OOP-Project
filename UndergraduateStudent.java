@@ -167,20 +167,21 @@ public class UndergraduateStudent extends Student {
         return super.computeGWA();
     }
 
-    public void academicStatus(){
+    public String academicStatus(){
         // Convert the computed average into the undergraduate status category.
-        if(computeGWA() >= 1.00 && computeGWA() <= 1.99) {
-            System.out.println("Outstanding");
-        } else if(computeGWA() >= 2.00 && computeGWA() <= 2.99){
-            System.out.println("Satisfactory");
-        } else if(computeGWA() >= 3.00 && computeGWA() <= 3.49) {
-            System.out.println("Passed");
-        } else if(computeGWA() >= 3.50 && computeGWA() <= 4.00){
-            System.out.println("Conditional");
-        } else if(computeGWA() > 4.00){
-            System.out.println("Failed");
+        double gwa = computeGWA();
+        if(gwa >= 1.00 && gwa <= 1.99) {
+            return "Outstanding";
+        } else if(gwa >= 2.00 && gwa <= 2.99){
+            return "Satisfactory";
+        } else if(gwa >= 3.00 && gwa <= 3.49) {
+            return "Passed";
+        } else if(gwa >= 3.50 && gwa <= 4.00){
+            return "Conditional";
+        } else if(gwa > 4.00){
+            return "Failed";
         } else{
-            System.out.println("None");
+            return "None";
         }
     }
 

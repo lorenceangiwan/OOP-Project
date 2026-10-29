@@ -26,8 +26,7 @@ public abstract class Student extends Person{
             }
 
             System.out.printf("\nOverall GWA: %.2f%n", computeGWA());
-            System.out.print("Academic Status: ");
-            academicStatus();
+            System.out.println("Academic Status: " + academicStatus());
             System.out.printf("\nBase Tuition: Php%,.2f", computeTuition());
             System.out.print("\nMerit: " + isMerit());
             System.out.printf("\nDiscounted Tuition: Php%,.2f%n", discountedTuition());
@@ -121,7 +120,7 @@ public abstract class Student extends Person{
         return totalGWA;
     }
 
-    public abstract void academicStatus();
+    public abstract String academicStatus();
 
     public abstract double computeTuition();
 

@@ -216,17 +216,18 @@ public class GraduateStudent extends Student {
         return super.computeGWA();
     }
 
-    public void academicStatus() {
-        if (computeGWA() >= 1.00 && computeGWA() <= 1.99) {
-            System.out.println("Outstanding");
-        } else if (computeGWA() >= 2.00 && computeGWA() <= 2.49) {
-            System.out.println("Passed");
-        } else if (computeGWA() >= 2.50 && computeGWA() <= 2.99) {
-            System.out.println("Conditional");
-        } else if (computeGWA() >= 3.00) {
-            System.out.println("Failed");
+    public String academicStatus() {
+        double gwa = computeGWA();
+        if (gwa >= 1.00 && gwa <= 1.99) {
+            return "Outstanding";
+        } else if (gwa >= 2.00 && gwa <= 2.49) {
+            return "Passed";
+        } else if (gwa >= 2.50 && gwa <= 2.99) {
+            return "Conditional";
+        } else if (gwa >= 3.00) {
+            return "Failed";
         } else {
-            System.out.println("None");
+            return "None";
         }
     }
 
