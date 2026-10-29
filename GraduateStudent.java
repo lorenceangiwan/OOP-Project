@@ -1,3 +1,4 @@
+// Adds graduate degree selection and graduate tuition rules to Student.
 public class GraduateStudent extends Student {
 
     public void displayInfo(){
@@ -11,11 +12,10 @@ public class GraduateStudent extends Student {
             System.out.println("\n-----CHANGE STUDENT INFORMATION-----");
             System.out.println("1. Name (" + name + ")");
             System.out.println("2. Address (" + address + ")");
-            System.out.println("3. ID Number (" + idNumber + ")");
             System.out.println("Degree Type: " + degreeType);
-            System.out.println("4. Course (" + course + ")");
-            System.out.println("5. Password");
-            System.out.println("6. Done");
+            System.out.println("3. Course (" + course + ")");
+            System.out.println("4. Password");
+            System.out.println("5. Done");
             System.out.print("What do you want to change? ");
 
             switch (in.nextLine().trim()) {
@@ -41,21 +41,7 @@ public class GraduateStudent extends Student {
                     }
                     break;
 
-                case "3":
-                    if (!confirmPassword()) {
-                        break;
-                    }
-                    System.out.print("Enter new ID Number: ");
-                    String newID = in.nextLine().trim();
-                    if (newID.isEmpty()) {
-                        System.out.println("Input failed. ID Number must not be empty.");
-                    } else {
-                        idNumber = newID;
-                        System.out.println("ID Number updated.");
-                    }
-                    break;
-
-                case "4": {
+                case "3": {
                     System.out.println("Changing course will replace your subjects and reset their grades.");
                     System.out.print("Continue? (y/n): ");
 
@@ -84,7 +70,7 @@ public class GraduateStudent extends Student {
                     break;
                 }
 
-                case "5":
+                case "4":
                     if (!confirmPassword()) {
                         break;
                     }
@@ -98,7 +84,7 @@ public class GraduateStudent extends Student {
                     }
                     break;
                     
-                case "6":
+                case "5":
                     done = true;
                     break;
                 default:
@@ -107,6 +93,7 @@ public class GraduateStudent extends Student {
         }
     }
 
+    // Collects account details, degree, course, and login credentials.
     public void register() {
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -143,6 +130,7 @@ public class GraduateStudent extends Student {
 
     }
 
+    // Reads whether the student is pursuing a master's or doctorate degree.
     public void selectDegreeType() {
         System.out.println("\nSelect Degree Type:");
         System.out.println("[1] Masteral");
@@ -172,6 +160,7 @@ public class GraduateStudent extends Student {
         }
     }
 
+    // Limits course choices to those offered under the selected degree type.
     public void selectCourse() {
         System.out.println();
         if (degreeType.equals("Masteral")) {
@@ -243,6 +232,7 @@ public class GraduateStudent extends Student {
 
     public double computeTuition(){
         double tuitionPerUnit;
+        // Doctoral units cost more than master's units.
         if (degreeType.equals("Masteral")) {
             tuitionPerUnit = 3500.0;
         } else {

@@ -11,6 +11,7 @@ public abstract class Person {
 
     public abstract void updateInfo(); 
 
+    // Requires the current password before allowing a protected account change.
     public boolean confirmPassword() {
         System.out.print("Enter your current password to continue: ");
         String entered = in.nextLine();

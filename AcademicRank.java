@@ -1,3 +1,4 @@
+// Stores a professor's rank and the salary assigned to that rank.
 public class AcademicRank {
     private String title;
     private double monthlySalary;
@@ -10,6 +11,7 @@ public class AcademicRank {
     public String getTitle() { return title; }
     public double getMonthlySalary() { return monthlySalary; }
 
+    // Estimates daily pay using a standard 22-workday month.
     public double dailyEarnings() {
         return monthlySalary / 22.0; // Assumes 22 days of work in a month
     }
@@ -43,13 +45,15 @@ public class AcademicRank {
         System.out.println("2. Assistant Professor 2");
         System.out.println("3. Assistant Professor 3");
         System.out.println("4. Assistant Professor 4");
-        System.out.println("Associate Professors:");
+
+        System.out.println("\nAssociate Professors:");
         System.out.println("5. Associate Professor 1");
         System.out.println("6. Associate Professor 2");
         System.out.println("7. Associate Professor 3");
         System.out.println("8. Associate Professor 4");
         System.out.println("9. Associate Professor 5");
-        System.out.println("Professors:");
+        
+        System.out.println("\nProfessors:");
         System.out.println("10. Professor 1");
         System.out.println("11. Professor 2");
         System.out.println("12. Professor 3");

@@ -44,6 +44,7 @@ public class Professor extends Person implements Taxable {
         }
     }
     
+    // Collects profile, department, rank, and login credentials.
     public void register() {
         System.out.println("\n-----REGISTRATION-----");
         System.out.print("Enter Full Name: ");
@@ -54,18 +55,21 @@ public class Professor extends Person implements Taxable {
         // Course selection
         while (true) {
             System.out.println("\nSelect assigned Department:");
-            System.out.println("1. BSCS");
-            System.out.println("2. MSCS");
-            System.out.println("3. BSIT");
-            System.out.println("4. MSIT");
-            System.out.println("5. PhDCS");
-            System.out.println("6. PhDIT");
+            System.out.println("Bachelor's Degrees:");
+            System.out.println("1. Bachelor of Science in Computer Science (BSCS)");
+            System.out.println("2. Bachelor of Science in Information Technology (BSIT)");
+            System.out.println("\nMaster's Degrees:");
+            System.out.println("3. Master of Science in Computer Science (MSCS)");
+            System.out.println("4. Master of Science in Information Technology (MSIT)");
+            System.out.println("\nDoctoral Degrees:");
+            System.out.println("5. Doctor of Philosophy in Computer Science (PhDCS)");
+            System.out.println("6. Doctor of Philosophy in Information Technology (PhDIT)");
             System.out.print("Enter choice (1-6): ");
             
             switch (in.nextLine().trim()) {
                 case "1": department = "BSCS"; break;
-                case "2": department = "MSCS"; break;
-                case "3": department = "BSIT"; break;
+                case "2": department = "BSIT"; break;
+                case "3": department = "MSCS"; break;
                 case "4": department = "MSIT"; break;
                 case "5": department = "PhDCS"; break;
                 case "6": department = "PhDIT"; break;
@@ -82,20 +86,23 @@ public class Professor extends Person implements Taxable {
             AcademicRank.displayRankMenu();
             System.out.print("Enter rank choice (1-15): ");
 
-            try {
-                int choice = Integer.parseInt(in.nextLine().trim());
+            if (in.hasNextInt()) {
+                int choice = in.nextInt();
+                in.nextLine();
                 this.rank = AcademicRank.getRankByChoice(choice);
-                
+
                 if (this.rank == null) {
                     System.out.println("Invalid choice. Please select between 1 and 15.");
-                    continue;
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number between 1 and 15.");
-                continue;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number between 1 and 15.");
+                in.nextLine();
             }
-            break;
+            if (this.rank != null) {
+                break;
+            }
         }
+        System.out.println("Chosen academic rank: " + rank.getTitle());
 
         do {
             System.out.print("Enter ID Number: ");
@@ -214,11 +221,13 @@ public class Professor extends Person implements Taxable {
         }
     }
 
+    // Calculates take-home monthly pay after applying the configured tax rate.
     public double computeTax(){
         double taxAmount = rank.getMonthlySalary() * taxRate;
         return rank.getMonthlySalary() - taxAmount;
     }
 
+    // Lists the subjects in the catalog for the professor's assigned department.
     public void teachingLoad() {
         System.out.println("\nTeaching load for " + department + ":");
         SubjectItem[] subjects = SubjectItem.courseSubjects(department);
@@ -237,12 +246,4 @@ public class Professor extends Person implements Taxable {
         return super.confirmPassword();
     }
 
-    // Getters and Setters
-    public String getDepartment() { return department; }
-    public void setDeparment(String department) { this.department = department; }
-
-    public AcademicRank getRank() { return rank; }
-    public void setRank(AcademicRank rank) { this.rank = rank; }
-
-    
 }
