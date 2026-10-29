@@ -1,5 +1,5 @@
 public interface Taxable {
-    public double taxRate = 0.12;
+    public double taxRate = 0.13;
     
     
     public double computeTax();
